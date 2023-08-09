@@ -2,8 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useUserContext } from "../../contexts/userContext";
 
 const Header = () => {
+  const { userLoggedIn } = useUserContext();
+
   return (
     <Wrapper>
       <div className="navbar">
@@ -44,10 +47,10 @@ const Header = () => {
               <li>
                 <NavLink to="/profile">Profile</NavLink>
               </li>
-              <li>
+              <li className={userLoggedIn ? "d-none" : ""}>
                 <NavLink to="/login">Login</NavLink>
               </li>
-              <li>
+              <li className={!userLoggedIn ? "d-none" : ""}>
                 <NavLink>Logout</NavLink>
               </li>
             </ul>
@@ -146,6 +149,9 @@ const Wrapper = styled.header`
         }
       }
     }
+  }
+  .d-none {
+    display: none;
   }
 `;
 export default Header;
