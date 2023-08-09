@@ -1,5 +1,8 @@
-const Host = "http://localhost:5000";
-const API_1 = `${Host}/api/auth/login`;
-const API_2 = `${Host}/api/auth/register`;
+// const Host = "http://localhost:5000";
+const API_1 = `/api/auth/login`;
+const API_2 = `/api/auth/register`;
 
-export { API_1, API_2 };
+// for login using cookies
+const API_3 = "/api/auth/hii";
+
+export { API_1, API_2, API_3 };

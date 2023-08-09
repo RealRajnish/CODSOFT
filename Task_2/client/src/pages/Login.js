@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import axios from "axios";
 import { API_1, API_2 } from "../api/Api";
+import { useUserContext } from "../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -12,6 +14,9 @@ const Login = () => {
     cpassword: "",
     contact: "",
   });
+
+  const { checkLoggedInStatus } = useUserContext();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     let value = e.target.value;
@@ -30,12 +35,18 @@ const Login = () => {
     }
   };
 
-  const loginBtn = async () => {
+  const loginBtn = async (e) => {
+    e.preventDefault();
     try {
       const resp = await axios.post(API_1, {
         username: state.username,
         password: state.password,
       });
+      console.log(resp.data);
+      if (resp.data.code === 3) {
+        checkLoggedInStatus();
+        navigate("/");
+      }
     } catch (error) {
       console.log(error.msg);
     }
@@ -142,7 +153,7 @@ const Login = () => {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              <Button>Sign in</Button>
+              <Button onClick={loginBtn}>Sign in</Button>
             </form>
           </div>
 
