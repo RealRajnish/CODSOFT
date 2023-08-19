@@ -1,10 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import BookingSection from "../components/Home_Components/BookingSection";
+import PartnersSection from "../components/Home_Components/PartnersSection";
+import UserReviewsSection from "../components/Home_Components/UserReviewsSection";
 
 const Home = () => {
   return (
     <Wrapper>
-      <div className="glassy-element box">heey buddy</div>
+      <BookingSection />
+      {/* <div className="glassy-element box">heey buddy</div> */}
+      <PartnersSection />
+      <UserReviewsSection />
     </Wrapper>
   );
 };
@@ -13,6 +19,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   .box {
     min-height: 90vh;
     width: 90%;

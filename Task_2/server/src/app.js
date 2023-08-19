@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const app = express();
 const path = require("path");
 const userRoutes = require("./routes/userRoutes");
+const airportRoutes = require("./routes/airportRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors"); //for resolving cors error
 
@@ -13,6 +14,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth", userRoutes);
+app.use(airportRoutes);
 
 // database connection
 require("./db/conn");
