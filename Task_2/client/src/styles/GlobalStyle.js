@@ -26,6 +26,8 @@ html {
   color:  ${({ theme }) =>
     theme.colors
       .white};; /* Set text color to white for better readability on dark background */
+  font-size: 1.6rem;
+
 }
 .glassy-element {
   background-color: rgba(255, 255, 255, 0.15); /* Use rgba to set transparency */
