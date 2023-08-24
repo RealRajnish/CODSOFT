@@ -7,13 +7,14 @@ import {
 } from "react";
 import reducer from "../contexts/reducers/userReducer";
 import axios from "axios";
-import { API_3, API_4, API_5, API_6 } from "../api/Api";
+import { API_3, API_4, API_5, API_6, API_9 } from "../api/Api";
 
 const UserContext = createContext();
 
 const initialState = {
   userLoggedIn: false,
   rootUser: { name: "", email: "", contact: "" },
+  trainTickets: [],
 };
 const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -40,8 +41,22 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  // get all train tickets
+  const getTrainTickets = async () => {
+    try {
+      const data = await axios.post(API_9, { user_id: state.rootUser.email });
+      dispatch({
+        type: "GET_ALL_TRAIN_TICKETS",
+        payload: data.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     checkLoggedInStatus();
+    getTrainTickets();
   }, []);
 
   return (

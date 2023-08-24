@@ -17,4 +17,10 @@ const API_6 = "/getTrainsBtwStations";
 // for booking train tickets
 const API_7 = "/addTrainTicket";
 
-export { API_1, API_2, API_3, API_4, API_5, API_6, API_7 };
+// for checking seats in trains
+const API_8 = "/getTrainSeatsAvailability";
+
+// for getting all train tickets
+const API_9 = "/getTrainTickets";
+
+export { API_1, API_2, API_3, API_4, API_5, API_6, API_7, API_8, API_9 };

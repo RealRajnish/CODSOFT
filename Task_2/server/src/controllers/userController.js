@@ -42,7 +42,7 @@ const signin = async (req, res) => {
         res.status(400).json({ error: "invalid credentials...", code: 2 });
       } else {
         const token = await userLogin.generateAuthToken();
-        console.log(token);
+        // console.log(token);
 
         res.cookie("jwtoken", token, {
           expires: new Date(Date.now() + 2.628e9),
@@ -62,12 +62,12 @@ const signin = async (req, res) => {
 const hii = (req, res) => {
   const { username, email, contact } = req.rootUser;
   res.json({ username, email, contact });
-  console.log(req.rootUser.username);
+  // console.log(req.rootUser.username);
 };
 
 // Logout page
 const logout = (req, res) => {
-  console.log("Hello my logout page");
+  // console.log("Hello my logout page");
   res.clearCookie("jwtoken", { path: "/" });
   res.status(200).json({
     message: "Logout successfully",

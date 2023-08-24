@@ -9,6 +9,11 @@ const seatAvailabilitySchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  uniqueProp: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   totalSL: {
     type: Number,
     required: true,

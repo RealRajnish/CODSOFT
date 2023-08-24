@@ -59,6 +59,9 @@ const ticketSchema = new mongoose.Schema({
       type: String,
     },
   },
+  totalFare: {
+    type: Number,
+  },
 });
 
 const Tickets = mongoose.model("TrainTickets", ticketSchema);

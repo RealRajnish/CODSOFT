@@ -28,18 +28,13 @@ const getTrains = async (req, res) => {
         $project: { _id: 0, name: 1, train: 1 },
       },
     ]);
-    console.log(trainName);
-    const temp1 = [...data];
-    const temp2 = [...trainName];
+    // console.log(trainName);
+    // const temp1 = [...data];
+    // const temp2 = [...trainName];
 
-    console.log(temp1);
-    console.log(temp2);
+    // // console.log(temp1);
+    // // console.log(temp2);
 
-    // const mergedArray = temp1.map((item1) => {
-    //   const matchingItem = temp2.find((item2) => item2.train === item1.train);
-    //   // console.log();
-    //   return { ...item1, ...matchingItem };
-    // });
     res.json({ data, trainName });
 
     // console.log(mergedArray);
