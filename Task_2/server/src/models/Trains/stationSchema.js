@@ -24,14 +24,7 @@ const stationSchema = new mongoose.Schema({
   },
   Trains: [
     {
-      trainNo: {
-        type: Number,
-        required: true,
-        unique: true,
-      },
-      arrival: {
-        type: String,
-      },
+      type: Number,
     },
   ],
 });

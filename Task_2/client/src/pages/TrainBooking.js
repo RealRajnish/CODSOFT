@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import SearchingTrain from "../components/Booking/Train/SearchingTrain";
 
 const TrainBooking = () => {
   return (
     <Wrapper>
       <div className="main">Train Booking page</div>
+      <SearchingTrain />
     </Wrapper>
   );
 };
