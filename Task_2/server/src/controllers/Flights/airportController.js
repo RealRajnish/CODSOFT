@@ -1,4 +1,4 @@
-const Airport = require("../models/airportSchema");
+const Airport = require("../../models/Flights/airportSchema");
 
 // for adding airports
 const addAirport = async (req, res) => {

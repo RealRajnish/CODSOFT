@@ -1,17 +1,22 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import reducer from "../contexts/reducers/userReducer";
 import axios from "axios";
-import { API_3, API_4 } from "../api/Api";
+import { API_3, API_4, API_5, API_6 } from "../api/Api";
 
 const UserContext = createContext();
 
-const inititalState = {
+const initialState = {
   userLoggedIn: false,
   rootUser: { name: "", email: "", contact: "" },
-  airportList: [],
 };
 const UserProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, inititalState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // for setting userLoggedIn status true
   const setLoggedIn = () => {
@@ -35,25 +40,17 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const getAirports = async (req, res) => {
-    try {
-      const resp = await axios.get(API_4);
-      dispatch({
-        type: "AIRPORT_LIST_RETREIVE",
-        payload: resp.data,
-      });
-      console.log(resp.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
     checkLoggedInStatus();
-    getAirports();
   }, []);
 
   return (
-    <UserContext.Provider value={{ ...state, checkLoggedInStatus }}>
+    <UserContext.Provider
+      value={{
+        ...state,
+        checkLoggedInStatus,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

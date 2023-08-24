@@ -1,4 +1,7 @@
-const { getAirports, addAirport } = require("../controllers/airportController");
+const {
+  getAirports,
+  addAirport,
+} = require("../../controllers/Flights/airportController");
 
 const router = require("express").Router();
 

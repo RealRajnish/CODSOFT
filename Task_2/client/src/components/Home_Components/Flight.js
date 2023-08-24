@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
-import { useUserContext } from "../../contexts/userContext";
+import { useFlightContext } from "../../contexts/flightContext";
 
 const Flight = () => {
   const [From, setFrom] = useState(null);
   const [To, setTo] = useState(null);
   const [Cabin, setCabin] = useState(null);
   const [state, setState] = useState({});
-  const { airportList } = useUserContext();
+  const { airportList } = useFlightContext();
 
   const handleChange = (e) => {
     let name = e.target.name;
