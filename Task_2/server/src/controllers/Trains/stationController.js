@@ -5,7 +5,7 @@ const addStation = async (req, res) => {
   try {
     const data = new Station(req.body);
     const temp = await data.save();
-    console.log(temp);
+    // console.log(temp);
     res.send(temp);
   } catch (error) {
     console.log(error);

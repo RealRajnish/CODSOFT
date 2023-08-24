@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Train from "./Train";
 import Select from "react-select";
-import { useTrainContext } from "../../../contexts/trainContext";
+import { useTrainContext, getSeats } from "../../../contexts/trainContext";
 
 const SearchingTrain = () => {
   const {
@@ -13,7 +13,6 @@ const SearchingTrain = () => {
     setTrainStationEnd,
     setTrainStationStart,
     getTrainsBtwSt,
-    setDate,
   } = useTrainContext();
   const [Cabin, setCabin] = useState(null);
 
@@ -28,9 +27,12 @@ const SearchingTrain = () => {
     setSelectedDate(dateValue);
 
     const parsedDate = new Date(dateValue);
-    setDay(parsedDate.getDate());
-    setMonth(parsedDate.getMonth() + 1); // Months are 0-indexed, so add 1
-    setYear(parsedDate.getFullYear());
+    const year = parsedDate.getFullYear();
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0"); // Month ranges from 0 to 11
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    setDay(day);
+    setMonth(month);
+    setYear(year);
   };
 
   const handleSubmit = () => {

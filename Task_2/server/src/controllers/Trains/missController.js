@@ -7,7 +7,7 @@ const initializeSeatAvailability = async (req, res) => {
     const train = await Train.find({ train: req.body.train });
     // const dates =req.body.date
     // console.log(dates)
-    console.log(train);
+    // console.log(train);
     for (const date of req.body.date) {
       const seatAvailability = new SeatAvailability({
         trainId: train[0].train,
@@ -20,6 +20,7 @@ const initializeSeatAvailability = async (req, res) => {
         bookedAC1: 0,
         bookedAC2: 0,
         bookedAC3: 0,
+        uniqueProp: train[0].train + date,
       });
       await seatAvailability.save();
     }

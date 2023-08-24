@@ -3,9 +3,13 @@ import styled from "styled-components";
 import { useTrainContext } from "../../../contexts/trainContext";
 import Passengers from "./Passengers";
 import { useUserContext } from "../../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API_7 } from "../../../api/Api";
 
 const AddPassenger = () => {
-  const { trainChoice, bookTicket } = useTrainContext();
+  const navigate = useNavigate();
+  const { trainChoice, uniqueProp, trainBtwSt } = useTrainContext();
   const { rootUser } = useUserContext();
   const [mobileNumber, setMobileNumber] = useState("");
   const [isValid, setIsValid] = useState(true);
@@ -14,6 +18,8 @@ const AddPassenger = () => {
     { name: "", age: "" },
   ]);
 
+  const fares = trainBtwSt.find((ele) => ele.train === trainChoice.train);
+  // console.log(fares);
   const handleMobileNumberChange = (e) => {
     const inputNumber = e.target.value;
     if (/^\d{0,10}$/.test(inputNumber)) {
@@ -22,6 +28,30 @@ const AddPassenger = () => {
     }
   };
 
+  // for booking train tickets
+  const bookTicket = async ({ user_id, passengers, contact, train, fares }) => {
+    try {
+      const resp = await axios.post(API_7, {
+        user_id,
+        passengers,
+        contact,
+        train,
+        fares,
+        uniqueProp,
+      });
+      // console.log(resp.data);
+      if (resp.data.code === 1) {
+        window.alert(resp.data.msg);
+        // console.log(resp.data);
+        navigate("/");
+      } else if (resp.data.code === 2) {
+        window.alert(resp.data.msg);
+        // console.log(resp.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handlePurchase = () => {
     if (isValid && mobileNumber && trainChoice) {
       bookTicket({
@@ -29,6 +59,7 @@ const AddPassenger = () => {
         passengers: passengerDetails,
         contact: mobileNumber,
         train: trainChoice,
+        fares: fares.fares,
       });
     } else window.alert("Please Fill all Fields properly");
   };
@@ -81,6 +112,9 @@ const AddPassenger = () => {
           )}
         </div>
         <div className="layer5">
+          <div className="total_price">
+            Total Fares: {fares.fares[trainChoice.cabin] * passengerCount}
+          </div>
           <button onClick={handlePurchase}>purchase</button>
         </div>
       </div>

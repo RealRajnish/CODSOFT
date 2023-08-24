@@ -9,6 +9,7 @@ const stationRoutes = require("./routes/Trains/stationRoutes");
 const trainFareRoutes = require("./routes/Trains/trainFareRoutes");
 const trainTicketRoutes = require("./routes/Trains/ticketRoutes");
 const trainmissRoutes = require("./routes/Trains/missRoutes");
+const trainseatAvailabilityRoutes = require("./routes/Trains/seatAvailabilityRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors"); //for resolving cors error
 
@@ -27,6 +28,7 @@ app.use(stationRoutes);
 app.use(trainFareRoutes);
 app.use(trainTicketRoutes);
 app.use(trainmissRoutes);
+app.use(trainseatAvailabilityRoutes);
 
 // database connection
 require("./db/conn");

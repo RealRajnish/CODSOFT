@@ -7,7 +7,7 @@ import {
 } from "react";
 import reducer from "./reducers/trainReducer";
 import axios from "axios";
-import { API_5, API_6, API_7 } from "../api/Api";
+import { API_5, API_6, API_7, API_8 } from "../api/Api";
 
 const TrainContext = createContext();
 
@@ -15,12 +15,13 @@ const initialState = {
   stationList: [],
   trainBtwSt: [],
   trainChoice: {},
-  date: {},
+  seats: {},
 };
 const TrainProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [trainStationStart, setTrainStationStart] = useState(null);
   const [trainStationEnd, setTrainStationEnd] = useState(null);
+  const [uniqueProp, setUniqueProp] = useState(null);
 
   // for getting list of railways stations
   const getRailStaions = async () => {
@@ -45,7 +46,7 @@ const TrainProvider = ({ children }) => {
         type: "TRAIN_BTW_ST",
         payload: resp.data,
       });
-      console.log(resp.data);
+      // console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -74,20 +75,23 @@ const TrainProvider = ({ children }) => {
     });
   };
 
-  // for booking train tickets
-  const bookTicket = async ({ user_id, passengers, contact, train }) => {
-    try {
-      const resp = await axios.post(API_7, {
-        user_id,
-        passengers,
-        contact,
-        train,
-      });
-      console.log(resp.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // // for booking train tickets
+  // const bookTicket = async ({ user_id, passengers, contact, train, fares }) => {
+  //   try {
+  //     const resp = await axios.post(API_7, {
+  //       user_id,
+  //       passengers,
+  //       contact,
+  //       train,
+  //       fares,
+  //       uniqueProp,
+  //     });
+  //     console.log(resp.data);
+  //     setBookTicketResp(resp.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // setting date
   const setDate = ({ date }) => {
@@ -95,6 +99,21 @@ const TrainProvider = ({ children }) => {
       type: "SET_DATE",
       payload: date,
     });
+  };
+
+  // for getting seats availability in trains
+  const getSeats = async ({ uniqueProp }) => {
+    try {
+      // console.log(uniqueProp);
+      const resp = await axios.post(API_8, { uniqueProp });
+      // console.log(resp.data[0]);
+      dispatch({
+        type: "CHECK_SEATS",
+        payload: resp.data[0],
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -109,10 +128,14 @@ const TrainProvider = ({ children }) => {
         trainStationEnd,
         setTrainStationEnd,
         getTrainsBtwSt,
-        bookTicket,
+
         setTrainStation,
         setTrainAndCabin,
         setDate,
+        getSeats,
+        setUniqueProp,
+
+        uniqueProp,
       }}
     >
       {children}

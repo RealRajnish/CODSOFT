@@ -41,6 +41,13 @@ const trainReducer = (state, action) => {
       date: action.payload,
     };
   }
+  if (action.type === "CHECK_SEATS") {
+    return {
+      ...state,
+
+      seats: action.payload,
+    };
+  }
 
   return { ...state };
 };

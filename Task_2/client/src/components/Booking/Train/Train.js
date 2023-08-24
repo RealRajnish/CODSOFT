@@ -10,7 +10,36 @@ const Train = ({ elem, date }) => {
     trainStationStart,
     trainStationEnd,
     setTrainAndCabin,
+    getSeats,
+    seats,
+    bookTicket,
+    trainChoice,
+    setUniqueProp,
   } = useTrainContext();
+  const [availableSeats, setAvailableSeats] = useState();
+
+  const checkSeats = () => {
+    if (date.day) {
+      const temp = `${elem.train}${date.year}-${date.month}-${date.day}`;
+      setUniqueProp(temp);
+      // console.log(temp);
+      getSeats({ uniqueProp: temp });
+      if (seats.trainId === elem.train) {
+        setAvailableSeats({
+          sleeper: seats.totalSL - seats.bookedSL,
+          AC3: seats.totalAC3 - seats.bookedAC3,
+          AC2: seats.totalAC2 - seats.bookedAC2,
+          AC1: seats.totalAC1 - seats.bookedAC1,
+        });
+        // console.log("function called on" + elem.train);
+        // console.log(availableSeats);
+      } else {
+        setAvailableSeats(null);
+      }
+    } else {
+      console.log("please fill dates properly");
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -32,6 +61,9 @@ const Train = ({ elem, date }) => {
         departure: elem.departure,
         arrival: elem.arrival,
       });
+
+      // for booking ticket
+      // bookTicket({user_id:})
       navigate("/addPassenger");
     }
   };
@@ -53,7 +85,7 @@ const Train = ({ elem, date }) => {
             <div className="value">{elem.arrival}</div>
           </div>
         </div>
-        <div className="seat_info">
+        <div className="seat_info" onClick={() => checkSeats()}>
           <div
             className={
               select === "sleeper"
@@ -63,7 +95,9 @@ const Train = ({ elem, date }) => {
             onClick={() => setSelect("sleeper")}
           >
             <div className="text">sleeper (SL)</div>
-            <div className="seats">Refresh</div>
+            <div className="seats">
+              {availableSeats ? availableSeats.sleeper : "refresh"}
+            </div>
           </div>
           <div
             className={
@@ -71,7 +105,10 @@ const Train = ({ elem, date }) => {
             }
             onClick={() => setSelect("AC3")}
           >
-            AC tier 3 (3A)
+            <div className="text">AC tier 3 (3A)</div>
+            <div className="seats">
+              {availableSeats ? availableSeats.AC3 : "refresh"}
+            </div>
           </div>
           <div
             className={
@@ -79,7 +116,10 @@ const Train = ({ elem, date }) => {
             }
             onClick={() => setSelect("AC2")}
           >
-            AC tier 2 (2A)
+            <div className="text">AC tier 2 (2A)</div>
+            <div className="seats">
+              {availableSeats ? availableSeats.AC2 : "refresh"}
+            </div>
           </div>
           <div
             className={
@@ -87,7 +127,10 @@ const Train = ({ elem, date }) => {
             }
             onClick={() => setSelect("AC1")}
           >
-            AC tier 1 (1A)
+            <div className="text">AC tier 1 (1A)</div>
+            <div className="seats">
+              {availableSeats ? availableSeats.AC1 : "refresh"}
+            </div>
           </div>
         </div>
         <div className="booking">

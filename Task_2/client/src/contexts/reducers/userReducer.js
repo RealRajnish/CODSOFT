@@ -11,6 +11,12 @@ const userReducer = (state, action) => {
       rootUser: action.payload,
     };
   }
+  if (action.type === "GET_ALL_TRAIN_TICKETS") {
+    return {
+      ...state,
+      trainTickets: action.payload,
+    };
+  }
 
   return state;
 };

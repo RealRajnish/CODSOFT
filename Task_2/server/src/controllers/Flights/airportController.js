@@ -7,7 +7,7 @@ const addAirport = async (req, res) => {
     const airport = new Airport(data);
     const temp = await airport.save();
     res.send(temp);
-    console.log(temp);
+    // console.log(temp);
   } catch (error) {
     console.log(error);
   }
